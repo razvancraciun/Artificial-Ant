@@ -1,15 +1,28 @@
 package model.entity;
 
+import model.misc.Field;
+import model.misc.NonTerminal;
+import model.misc.Terminal;
 import model.misc.Tree;
 import model.misc.TreeFactory;
 
 public class Individual {
 
-	private double _fitness;
+	private int _fitness;
 	private Tree _tree;
 	private int _maxDepth;
 	
+	private int _steps;
+	private int _food;
+	private enum Face {LEFT,RIGHT,UP,DOWN};
+	private Face _face;
+	private int _xPos;
+	private int _yPos;
+	private String[][] _field;
+ 	
 	public Individual(int depth,boolean complete) {
+		_xPos=_yPos=0;
+		_face=Face.RIGHT;
 		_fitness=0;
 		_maxDepth=depth;
 		if(complete) {
@@ -20,7 +33,155 @@ public class Individual {
 		}
 	}
 	
+	public void evaluate() {
+		_fitness=0;
+		_field = Field.getInstance().getNewField();
+		_steps=_food=0;
+		while(_steps<10&& _food<90) {
+			evaluateTree(_tree);
+		}
+		_fitness=_food;
+	}
+	
+	public void evaluateTree(Tree tree) {
+		_steps++;
+		if(tree.getType()==Terminal.ADVANCE) {
+			advance();
+		}
+		else if(tree.getType()==Terminal.LEFT) {
+			left();
+		}
+		else if(tree.getType()==Terminal.RIGHT) {
+			right();
+		}
+		else if(tree.getType()==NonTerminal.SEQ2) {
+			evaluateTree(tree.getChild(0));
+			evaluateTree(tree.getChild(1));
+		}
+		else if(tree.getType()==NonTerminal.SEQ3) {
+			evaluateTree(tree.getChild(0));
+			evaluateTree(tree.getChild(1));
+			evaluateTree(tree.getChild(2));
+		}
+		else if(tree.getType()==NonTerminal.IF) {
+			switch(_face) {
+			case UP:
+				if(_field[mod(_yPos-1,_field.length)][_xPos].contains("#")) {
+					evaluateTree(tree.getChild(0));
+				}
+				else evaluateTree(tree.getChild(1));
+				break;
+			case DOWN:
+				if(_field[mod(_yPos+1,_field.length)][_xPos].contains("#")) {
+					evaluateTree(tree.getChild(0));
+				}
+				else evaluateTree(tree.getChild(1));
+				break;
+			case LEFT:
+				if(_field[_yPos][mod(_xPos-1,_field[0].length)].contains("#")) {
+					evaluateTree(tree.getChild(0));
+				}
+				else evaluateTree(tree.getChild(1));
+				break;
+			case RIGHT:
+				if(_field[_yPos][mod(_xPos+1,_field[0].length)].contains("#")) {
+					evaluateTree(tree.getChild(0));
+				}
+				else evaluateTree(tree.getChild(1));
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid ace @ if");
+		
+			}
+		}
+		else throw new IllegalArgumentException("Unsupported node type");
+	}
+	
+	public void advance() {
+		switch(_face) {
+		case RIGHT: 
+			_xPos=mod(_xPos+1,_field[0].length);
+			break;
+		case LEFT:
+			_xPos=mod(_xPos-1,_field[0].length);
+			break;
+		
+		case UP:
+			_yPos=mod(_yPos-1,_field.length);
+			break;
+		case DOWN:
+			_yPos=mod(_yPos+1,_field.length);
+			break;		
+		default:
+			throw new IllegalArgumentException("Invalid face");
+		}
+		
+		if(_field[_yPos][_xPos].contains("#")) {
+			_food++;
+		}
+		_field[_yPos][_xPos]="$";
+		
+	}
+	
+	public void printField() {
+		String print="";
+		for(int i=0;i<_field.length;i++) {
+			for(int j=0;j<_field[0].length;j++) {
+				print += _field[i][j] + " ";
+			}
+			print+="\n";
+		}
+		System.out.println(print);
+	}
+	
+	public void left() {
+		switch(_face) {
+		case UP: 
+			_face=Face.LEFT;
+			break;
+		case LEFT:
+			_face=Face.DOWN;
+			break;
+		case DOWN:
+			_face=Face.RIGHT;
+			break;
+		case RIGHT:
+			_face=Face.LEFT;
+			break;
+		default:
+			throw new IllegalArgumentException("BAD FACE @ left");
+		}
+	}
+	public void right() {
+		switch(_face) {
+		case UP: 
+			_face=Face.RIGHT;
+			break;
+		case LEFT:
+			_face=Face.UP;
+			break;
+		case DOWN:
+			_face=Face.LEFT;
+			break;
+		case RIGHT:
+			_face=Face.DOWN;
+			break;
+		default:
+			throw new IllegalArgumentException("BAD FACE @ right");
+		}
+	}
+	
 	public String toString() {
-		return _tree.toString();
+		return _tree.toString() + "Food: "+ _fitness;
+	}
+	
+	private int mod(int x, int y)
+	{
+	    int result = x % y;
+	    if (result < 0)
+	    {
+	        result += y;
+	    }
+	    return result;
 	}
 }

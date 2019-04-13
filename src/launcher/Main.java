@@ -1,23 +1,25 @@
 package launcher;
 
+import controller.Controller;
+import model.entity.Individual;
 import model.entity.Population;
+import model.misc.Field;
 import model.misc.Tree;
 import model.misc.TreeFactory;
+import view.MainWindow;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		/*TreeFactory tf=TreeFactory.getInstance();
-		Tree ctree = tf.buildCompleteTree(3);
-		Tree gtree = tf.buildGrowthTree(3);
-
+		/*Controller ctrl=new Controller();
 		
-		System.out.println(ctree);
-		System.out.println(gtree); */ //okay if growth trees can output just one node??
-		
-		
-		Population p = new Population(10,4);
+		MainWindow window=new MainWindow(ctrl);
+		window.setSize(300,300);
+		window.setVisible(true);;
+		*/
+		Population p = new Population(100,4);
+		p.evaluate();
 		System.out.println(p);
 	}
 

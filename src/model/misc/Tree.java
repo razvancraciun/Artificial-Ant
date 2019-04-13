@@ -27,6 +27,10 @@ public class Tree {
 		children.add(tree);
 	}
 	
+	public Tree getChild(int index) {
+		return children.get(index);
+	}
+	
 	public String toString() {
 		String result=""+type;
 		if(type.getClass()==NonTerminal.class)

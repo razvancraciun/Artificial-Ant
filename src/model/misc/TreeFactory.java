@@ -36,6 +36,9 @@ public class TreeFactory {
 				Tree tree = new Tree(getRandomNonTerminal());
 				tree.addChild(buildGrowthTree(depth-1));
 				tree.addChild(buildGrowthTree(depth-1));
+				if(tree.getType()==NonTerminal.SEQ3) {
+					tree.addChild(buildCompleteTree(depth-1));
+				}
 				return tree;
 			}
 			else {

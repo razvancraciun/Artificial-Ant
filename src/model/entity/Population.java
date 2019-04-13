@@ -19,6 +19,12 @@ public class Population {
 		}
 	}
 	
+	public void evaluate() {
+		for(Individual i : _population) {
+			i.evaluate();
+		}
+	}
+	
 	public String toString() {
 		String result="";
 		for(Individual i : _population) {
