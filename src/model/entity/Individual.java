@@ -33,26 +33,51 @@ public class Individual {
 		}
 	}
 	
+	public Individual(Individual other) {
+		_fitness=other.getFitness();
+		_maxDepth=other.getMaxDepth();
+		_tree=new Tree(other.getTree());
+		_field=other.getField();
+	}
+	
+	public Tree getTree() {
+		return _tree;
+	}
+	
+	public int getFitness() {
+		return _fitness;
+	}
+	
+	public int getMaxDepth() {
+		return _maxDepth;
+	}
+	
+	
 	public void evaluate() {
+		_xPos=_yPos=0;
+		_face=Face.RIGHT;
 		_fitness=0;
 		_field = Field.getInstance().getNewField();
 		_steps=_food=0;
-		while(_steps<10&& _food<90) {
+		while(_steps<400&& _food<90) {
 			evaluateTree(_tree);
 		}
 		_fitness=_food;
 	}
 	
 	public void evaluateTree(Tree tree) {
-		_steps++;
+		
 		if(tree.getType()==Terminal.ADVANCE) {
 			advance();
+			_steps++;
 		}
 		else if(tree.getType()==Terminal.LEFT) {
 			left();
+			_steps++;
 		}
 		else if(tree.getType()==Terminal.RIGHT) {
 			right();
+			_steps++;
 		}
 		else if(tree.getType()==NonTerminal.SEQ2) {
 			evaluateTree(tree.getChild(0));
@@ -90,7 +115,7 @@ public class Individual {
 				else evaluateTree(tree.getChild(1));
 				break;
 			default:
-				throw new IllegalArgumentException("Invalid ace @ if");
+				throw new IllegalArgumentException("Invalid face @ if");
 		
 			}
 		}
@@ -116,11 +141,13 @@ public class Individual {
 			throw new IllegalArgumentException("Invalid face");
 		}
 		
-		if(_field[_yPos][_xPos].contains("#")) {
+		if(_field[_yPos][_xPos].equals("#")) {//food
+			_field[_yPos][_xPos]="$"; //food eaten
 			_food++;
 		}
-		_field[_yPos][_xPos]="$";
-		
+		else if(_field[_yPos][_xPos].contains("0")) {
+			_field[_yPos][_xPos]="@"; //no food found
+		}
 	}
 	
 	public void printField() {
@@ -146,7 +173,7 @@ public class Individual {
 			_face=Face.RIGHT;
 			break;
 		case RIGHT:
-			_face=Face.LEFT;
+			_face=Face.UP;
 			break;
 		default:
 			throw new IllegalArgumentException("BAD FACE @ left");
@@ -171,8 +198,12 @@ public class Individual {
 		}
 	}
 	
+	public String[][] getField() {
+		return _field;
+	}
+	
 	public String toString() {
-		return _tree.toString() + "Food: "+ _fitness;
+		return _tree.toString() + " |||Food: "+ _fitness;
 	}
 	
 	private int mod(int x, int y)

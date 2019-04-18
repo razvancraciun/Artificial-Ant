@@ -1,20 +1,24 @@
 package view;
 
+
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.Controller;
 
 public class MainWindow extends JFrame {
-
+	//private static final long serialVersionUID = -7907731647470797405L;
+	
 	private JPanel _mainPanel;
 	private ControlPanel _controlPanel;
 	private Board _graphicsPanel;
 	
 	public MainWindow(Controller ctrl) {
 		super("Artificial ant");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		initGUI(ctrl);
 	}
 	
@@ -24,7 +28,15 @@ public class MainWindow extends JFrame {
 		this.setContentPane(_mainPanel);
 		_controlPanel=new ControlPanel(ctrl);
 		_graphicsPanel=new Board(ctrl);
-		_mainPanel.add(_controlPanel,BorderLayout.WEST);
-		_mainPanel.add(_graphicsPanel,BorderLayout.CENTER);
+		JPanel cpContainer = new JPanel(new BorderLayout());
+		cpContainer.add(_controlPanel,BorderLayout.CENTER);
+		cpContainer.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		
+		JPanel graphicsContainer = new JPanel(new BorderLayout());
+		graphicsContainer.add(_graphicsPanel,BorderLayout.CENTER);
+		//graphicsContainer.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
+		
+		_mainPanel.add(cpContainer,BorderLayout.WEST);
+		_mainPanel.add(graphicsContainer,BorderLayout.CENTER);
 	}
 }

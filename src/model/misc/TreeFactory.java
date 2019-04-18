@@ -1,8 +1,5 @@
 package model.misc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TreeFactory {
 	
 	private static TreeFactory instance;

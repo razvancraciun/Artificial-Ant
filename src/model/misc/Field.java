@@ -1,7 +1,6 @@
 package model.misc;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 
@@ -29,6 +28,7 @@ public class Field {
 	            }
 	         }
 	      }
+		sc.close();
 	}
 	
 	public static Field getInstance( ) {
