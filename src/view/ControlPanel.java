@@ -1,7 +1,10 @@
 package view;
 
 import java.awt.Dimension;
+<<<<<<< HEAD
 import java.awt.Font;
+=======
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+<<<<<<< HEAD
 import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -24,6 +28,18 @@ import model.entity.Individual;
 import model.mutation.Mutation;
 import model.mutation.TerminalMutation;
 import model.selection.DeterministicTournamentSelection;
+=======
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+
+import controller.Controller;
+import model.cross.Cross;
+import model.cross.NoCross;
+import model.entity.AlgorithmObserver;
+import model.entity.Individual;
+import model.mutation.Mutation;
+import model.mutation.NoMutation;
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 import model.selection.NoSelection;
 import model.selection.RouletteSelection;
 import model.selection.Selection;
@@ -36,6 +52,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 	private JComboBox<Selection> _selection;
 	private JSpinner _crossChance;
 	private JButton _start;
+<<<<<<< HEAD
 	private JButton _stop;
 	private JSpinner _mutationChance;
 	private JComboBox<Mutation> _mutation;
@@ -51,6 +68,15 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 	private Thread _thread;
 
 
+=======
+	private JSpinner _mutationChance;
+	private JSpinner _depth;
+	private JSpinner _elitism;
+	
+	
+	private Controller _ctrl;
+	
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	
 	
 	public ControlPanel(Controller ctrl) {
@@ -63,6 +89,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JLabel generationsLabel = new JLabel("Number of generations:");
+<<<<<<< HEAD
 		generationsLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
 		_generations=new JSpinner(new SpinnerNumberModel(100,1,10000,10));
@@ -127,6 +154,33 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		_start=new JButton("Start");
 		_stop=new JButton("Stop");
 
+=======
+		_generations=new JSpinner(new SpinnerNumberModel(100,1,10000,10));
+		
+		JLabel populationLabel=new JLabel("Population size:");
+		_populationSize=new JSpinner(new SpinnerNumberModel(100,10,10000,10));
+		
+		JLabel depthLabel=new JLabel("Maximum depth:");
+		_depth=new JSpinner(new SpinnerNumberModel(4,2,10,1));
+		
+		
+		JLabel selectionLabel = new JLabel("Selection:");
+		Selection[] selections= {new NoSelection(),new RouletteSelection()};
+		_selection = new JComboBox<Selection>(selections);
+		_selection.setSelectedIndex(1);
+		
+		JLabel crossChanceLabel = new JLabel("Cross chance:"); 
+		_crossChance= new JSpinner(new SpinnerNumberModel(0.6,0,1,0.05));
+		
+		JLabel mutationChanceLabel= new JLabel("Mutation chance:");
+		_mutationChance = new JSpinner(new SpinnerNumberModel(0.05,0,1,0.01));
+		
+		JLabel elitismLabel = new JLabel("Elitism:");
+		_elitism=new JSpinner(new SpinnerNumberModel(0,0,1,0.01));
+		
+		_start=new JButton("Start");
+		
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		addListeners();
 		
 		add(generationsLabel);
@@ -141,6 +195,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		add(_crossChance);
 		add(mutationChanceLabel);
 		add(_mutationChance);
+<<<<<<< HEAD
 		add(mutationLabel);
 		add(_mutation);
 		add(elitismLabel);
@@ -165,6 +220,14 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		JPanel space3 = new JPanel();
 		space3.setPreferredSize(new Dimension(50,500));
 		add(space3);
+=======
+		add(elitismLabel);
+		add(_elitism);
+		JPanel space = new JPanel();
+		space.setPreferredSize(new Dimension(50,500));
+		add(space);
+		add(_start);
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	}
 
 	
@@ -173,6 +236,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+<<<<<<< HEAD
 						
 				_thread = new Thread(new Runnable() {
 
@@ -226,11 +290,25 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 			}
 			
 		});
+=======
+				_ctrl.init((int)_populationSize.getValue(),(int) _depth.getValue(), (double) _crossChance.getValue(), (double) _mutationChance.getValue(),
+						(Selection) _selection.getSelectedItem(), (Cross) new NoCross(), (Mutation) new NoMutation(), (double) _elitism.getValue());
+				_ctrl.run((int)_generations.getValue());
+			}
+			
+		});
+	}
+	
+	@Override
+	public void onNewGeneration(int generation, int best, int bestThisGeneration, int averageThisGeneration) {
+		// TODO Auto-generated method stub
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		
 	}
 
 	@Override
 	public void onNewBest(Individual best) {
+<<<<<<< HEAD
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -240,10 +318,15 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 			}
 			
 		});
+=======
+		// TODO Auto-generated method stub
+		
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	}
 
 	@Override
 	public void onStart() {
+<<<<<<< HEAD
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -253,11 +336,15 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 			}
 			
 		});
+=======
+		// TODO Auto-generated method stub
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		
 	}
 
 	@Override
 	public void onEnd() {
+<<<<<<< HEAD
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -266,6 +353,9 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 			}
 			
 		});
+=======
+		// TODO Auto-generated method stub
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		
 	}
 }

@@ -1,5 +1,6 @@
 package launcher;
 
+<<<<<<< HEAD
 
 import javax.swing.SwingUtilities;
 
@@ -12,12 +13,20 @@ import model.mutation.NoMutation;
 import model.mutation.TerminalMutation;
 import model.selection.NoSelection;
 import model.selection.RouletteSelection;
+=======
+import controller.Controller;
+import model.cross.NoCross;
+import model.entity.GeneticAlorithm;
+import model.mutation.NoMutation;
+import model.selection.NoSelection;
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 import view.MainWindow;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
+<<<<<<< HEAD
 		GeneticAlorithm ga= new GeneticAlorithm(100, 4, 0.6, 0.05, new RouletteSelection(), new ExchangeCross(), new TerminalMutation(), 0);
 		Controller ctrl=new Controller(ga);
 		
@@ -44,6 +53,15 @@ public class Main {
 		ExchangeCross cross = new ExchangeCross();
 		
 		cross.apply(i1, i2);
+=======
+		GeneticAlorithm ga= new GeneticAlorithm(100, 4, 0.6, 0.05, new NoSelection(), new NoCross(), new NoMutation(), 0);
+		Controller ctrl=new Controller(ga);
+		
+		
+		MainWindow window=new MainWindow(ctrl);
+		window.setSize(800,600);
+		window.setVisible(true);
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	}
 
 }

@@ -1,5 +1,6 @@
 package model.mutation;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +47,16 @@ public class TerminalMutation implements Mutation {
 	public String toString() {
 		return "Terminal";
 	}
+=======
+import model.entity.Individual;
+
+public class TerminalMutation implements Mutation {
+	
+	@Override
+	public void apply(Individual source) {
+		// TODO Auto-generated method stub
+		return;
+	}
+>>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 
 }
