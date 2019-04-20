@@ -29,7 +29,7 @@ public class TreeFactory {
 			return new Tree(getRandomTerminal());
 		}
 		else {
-			if(Math.random()<0.5) {
+			if(Math.random()<0.7) {
 				Tree tree = new Tree(getRandomNonTerminal());
 				tree.addChild(buildGrowthTree(depth-1));
 				tree.addChild(buildGrowthTree(depth-1));

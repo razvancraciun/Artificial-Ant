@@ -1,14 +1,10 @@
 package model.entity;
 
-//package model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import model.cross.Cross;
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 import model.mutation.Mutation;
 
 public class Population {
@@ -45,25 +41,17 @@ public class Population {
 	}
 	
 	public void evaluate() {
-<<<<<<< HEAD
 		int generationBest=-1;
 		double generationAvg=0.0;
 		double sum=0.0;
 		for(Individual i : _population) {
 			i.evaluate();
 			if(i.getFitness()>_best.getFitness()) {
-=======
-		for(Individual i : _population) {
-			i.evaluate();
-			if(i.getFitness()>_best.getFitness()) {
-				//System.out.println("New best: Population. Observers: "+ _observers.size());
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 				_best=new Individual(i);
 				for(PopulationObserver o : _observers) {
 					o.onNewBest(_best);
 				}
 			}
-<<<<<<< HEAD
 			if(i.getFitness()>generationBest) {
 				generationBest=i.getFitness();
 			}
@@ -72,8 +60,6 @@ public class Population {
 		generationAvg=sum/_population.size();
 		for(PopulationObserver o : _observers) {
 			o.onNewEvaluation(generationBest, generationAvg);
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		}
 	}
 	
@@ -108,7 +94,6 @@ public class Population {
 			}
 		}
 	}
-<<<<<<< HEAD
 
 	public void cross(Cross _cross, double _crossChance) {
 		List<Individual> chosen = new ArrayList<Individual>();
@@ -122,6 +107,4 @@ public class Population {
 			_cross.apply(chosen.get(i-1), chosen.get(i));
 		}
 	}
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 }

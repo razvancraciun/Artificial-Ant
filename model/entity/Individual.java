@@ -23,10 +23,7 @@ public class Individual {
 	public Individual(int depth,boolean complete) {
 		_xPos=_yPos=0;
 		_face=Face.RIGHT;
-<<<<<<< HEAD
 		_field=Field.getInstance().getNewField();
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		_fitness=0;
 		_maxDepth=depth;
 		if(complete) {
@@ -41,11 +38,7 @@ public class Individual {
 		_fitness=other.getFitness();
 		_maxDepth=other.getMaxDepth();
 		_tree=new Tree(other.getTree());
-<<<<<<< HEAD
 		_field=Field.getCopy(other.getField());
-=======
-		_field=other.getField();
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	}
 	
 	public Tree getTree() {
@@ -60,13 +53,9 @@ public class Individual {
 		return _maxDepth;
 	}
 	
-<<<<<<< HEAD
 	public void setTree(Tree tree) {
 		this._tree=tree;
 	}
-	
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	
 	public void evaluate() {
 		_xPos=_yPos=0;

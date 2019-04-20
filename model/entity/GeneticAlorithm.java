@@ -19,11 +19,8 @@ public class GeneticAlorithm implements PopulationObserver {
 	private double _elitism;
 	
 	private Individual _best;
-<<<<<<< HEAD
 	private int _generationBest;
 	private double _generationAvg;
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	
 	private List<AlgorithmObserver> _observers;
 	
@@ -54,9 +51,7 @@ public class GeneticAlorithm implements PopulationObserver {
 			o.onStart();
 		}
 		_population.evaluate();
-		for(int i=0;i<generations;i++) {
-<<<<<<< HEAD
-			
+		for(int i=0;i<generations;i++) {			
 			if(Thread.currentThread().interrupted()) {
 				break;
 			}
@@ -72,13 +67,6 @@ public class GeneticAlorithm implements PopulationObserver {
 			for(AlgorithmObserver o : _observers) {
 				o.onNewGeneration(i,_best.getFitness(),_generationBest,_generationAvg);
 			}
-=======
-			_selection.apply(_population);
-			//TODO
-			//_population.cross(_cross,_crossChance);
-			_population.mutate(_mutation,_mutationChance);
-			_population.evaluate();
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		}
 		for(AlgorithmObserver o : _observers) {
 			o.onEnd();
@@ -93,7 +81,6 @@ public class GeneticAlorithm implements PopulationObserver {
 	@Override
 	public void onNewBest(Individual best) {
 		_best=best;
-<<<<<<< HEAD
 		for(AlgorithmObserver o : _observers) {
 			o.onNewBest(_best);
 		}
@@ -105,15 +92,5 @@ public class GeneticAlorithm implements PopulationObserver {
 		_generationBest=best;
 		_generationAvg=avg;
 	}
-	
-	
-=======
-		//System.out.println("New best: Alg. Observers : "+_observers.size());
-		for(AlgorithmObserver o : _observers) {
-			o.onNewBest(_best);
-		}
-		
-	}
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	
 }

@@ -8,10 +8,7 @@ public class Tree {
 	private List<Tree> children;
 	private NodeType type;
 	private int depth;
-<<<<<<< HEAD
 	private Tree parent;
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	
 	public Tree(NodeType type) {
 		this.type=type;
@@ -27,7 +24,6 @@ public class Tree {
 		this.depth=other.getDepth();
 	}
 	
-<<<<<<< HEAD
 	public Tree getParent() {
 		return parent;
 	}
@@ -37,8 +33,6 @@ public class Tree {
 	}
 	
 	
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	public List<Tree> getChildren() {
 		return children;
 	}
@@ -52,7 +46,6 @@ public class Tree {
 	}
 
 	public void addChild(Tree tree) {
-<<<<<<< HEAD
 		tree.setParent(this);
 		children.add(tree);
 	}
@@ -61,11 +54,7 @@ public class Tree {
 		children.remove(tree);
 	}
 	
-=======
-		children.add(tree);
-	}
 	
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	public Tree getChild(int index) {
 		return children.get(index);
 	}
@@ -103,13 +92,10 @@ public class Tree {
 			result+=")";
 		return result;
 	}
-<<<<<<< HEAD
 
 	public void replaceChild(Tree point1, Tree point2) {
 		children.set(children.indexOf(point1),point2);
 	}
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	
 	
 }

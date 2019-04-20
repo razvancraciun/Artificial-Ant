@@ -5,10 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
-<<<<<<< HEAD
 import javax.swing.SwingUtilities;
-=======
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 
 import controller.Controller;
 import model.entity.AlgorithmObserver;
@@ -66,8 +63,6 @@ public class Board extends JComponent implements AlgorithmObserver {
 		}
 	}
 
-<<<<<<< HEAD
-
 	@Override
 	public void onNewBest(Individual best) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -78,16 +73,10 @@ public class Board extends JComponent implements AlgorithmObserver {
 				repaint();
 			}
 		});
-=======
-	@Override
-	public void onNewGeneration(int generation, int best, int bestThisGeneration, int averageThisGeneration) {
-		// TODO Auto-generated method stub
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 		
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void onStart() {
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -114,22 +103,5 @@ public class Board extends JComponent implements AlgorithmObserver {
 	@Override
 	public void onNewGeneration(int generation,int best,int generationBest,double generationAvg) {
 		// TODO Auto-generated method stub
-		
-=======
-	public void onNewBest(Individual best) {
-		//System.out.println("new best");
-		_field=best.getField();
-	}
-
-	@Override
-	public void onStart() {
-		_field=Field.getInstance().getNewField();
-	}
-
-	@Override
-	public void onEnd() {
-		
-		repaint();
->>>>>>> 9b598c4e67b0c7e7e5e80bec1596c817cfe36250
 	}
 }
