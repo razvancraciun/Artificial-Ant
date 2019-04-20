@@ -18,68 +18,83 @@ public class ExchangeCross implements Cross {
 	@Override
 	public void apply(Individual  first,Individual second) {
 		initLists();
+		Individual firstCopy= new Individual(first);
+		Individual secondCopy=new Individual(second);
 		add(first.getTree(),true);
 		add(second.getTree(),false);
+		first.getTree().computeDepths();
+		second.getTree().computeDepths();
 		
-		Individual firstCopy = new Individual(first);
-		Individual secondCopy = new Individual(second);
 		
-		replace(firstCopy,secondCopy);
-		firstCopy.getTree().computeDepths();
-		secondCopy.getTree().computeDepths();
+		Tree point1=choosePoint(true);
+		Tree point2=choosePoint(false);
 		
-		while(firstCopy.getTree().getDepth()>first.getMaxDepth() || secondCopy.getTree().getDepth()>second.getMaxDepth()) {
-			replace(firstCopy,secondCopy);
-			firstCopy.getTree().computeDepths();
-			secondCopy.getTree().computeDepths();
+		while(first.getTree().getDepth()-point1.getDepth()+point2.getDepth()>first.getMaxDepth() || 
+				second.getTree().getDepth()-point2.getDepth()+point1.getDepth()>second.getMaxDepth()) {
+			point1=choosePoint(true);
+			point2=choosePoint(false);
 		}
 		
-		first=firstCopy;
-		second=secondCopy;
 		
 		
 		
+		Tree temp1 = new Tree(point1);
+		Tree temp2= new Tree(point2);
 		
-		//System.out.println(first);
-		//sSystem.out.println(second);
+		//System.out.println(point1+ ". Parent: "+ point1.getParent());
+		//System.out.println(point2+ ". Parent: "+ point2.getParent());
+		
+		if(point1.getParent()!=null) {
+			point1.getParent().replaceChild(point1, temp2); //nu schimba nimic
+		}
+		else {
+			point2.setParent(null);
+			first.setTree(temp2);
+			
+		}
+		if(point2.getParent()!=null) {
+			point2.getParent().replaceChild(point2, temp1);
+		}
+		else {
+			point2.setParent(null);
+			second.setTree(temp1);
+			
+		}
+		
+		//System.out.println(point1+ ". Parent: "+ temp1.getParent());
+		//System.out.println(point2+ ". Parent: "+ temp2.getParent());
+		
+	
 	}
 	
+	private Tree choosePoint(boolean first) {
+		Tree point = null;
+		if(first) {
+			if(Math.random()<0.9 && _firstFunctions.size()>0) {
+				point = _firstFunctions.get((int)(Math.random()*_firstFunctions.size()));
+			}
+			else {
+				point = _firstTerminals.get((int)(Math.random()*_firstTerminals.size()));
+			}
+		}
+		else {
+			if(Math.random()<0.9 && _secondFunctions.size()>0) {
+				point = _secondFunctions.get((int)(Math.random()*_secondFunctions.size()));
+			}
+			else {
+				point = _secondTerminals.get((int)(Math.random()*_secondTerminals.size()));
+			}
+		}
+		return point;
+		
+		
+	}
+
 	private void initLists() {
 		_firstFunctions=new ArrayList<Tree>();
 		_secondFunctions=new ArrayList<Tree>();
 		_firstTerminals=new ArrayList<Tree>();
 		_secondTerminals=new ArrayList<Tree>();
-	}
-
-	private void replace(Individual first, Individual second) {
-		Tree point1;
-		if(Math.random()<0.9 && _firstFunctions.size()>0) {
-			point1=_firstFunctions.get((int)(Math.random()*_firstFunctions.size()));
-		}
-		else {
-			point1=_firstTerminals.get((int)(Math.random()*_firstTerminals.size()));
-		}
-		Tree point2;
-		if(Math.random()<0.9 && _secondFunctions.size()>0) {
-			point2=_secondFunctions.get((int)(Math.random()*_secondFunctions.size()));
-		}
-		else {
-			point2=_secondTerminals.get((int)(Math.random()*_secondTerminals.size()));
-		}
-		
-		if(point1.getParent()!=null) {
-			point1.getParent().replaceChild(point1,point2);
-		}
-		else {
-			first.setTree(point2);
-		}
-		
-		if(point2.getParent()!=null) {
-			point2.getParent().replaceChild(point2,point1);
-		}
-		else {
-			second.setTree(point1);
-		}
 	}
 	
 	private void add(Tree tree, boolean first) {

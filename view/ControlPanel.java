@@ -194,7 +194,10 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				_thread.interrupt();
+				if(_thread!=null) {
+					_thread.interrupt();
+				}
+				
 			}
 			
 		});

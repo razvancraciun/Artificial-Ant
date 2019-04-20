@@ -17,18 +17,23 @@ public class Tree {
 	
 	public Tree(Tree other) {
 		this.type=other.getType();
+		this.parent=null;
 		children=new ArrayList<Tree>();
 		for(int i=0;i<other.getChildren().size();i++) {
-			this.children.add(new Tree(other.getChild(i)));
+			Tree child = new Tree(other.getChild(i));
+			child.setParent(this);
+			this.children.add(child);
 		}
 		this.depth=other.getDepth();
+		
+
 	}
 	
 	public Tree getParent() {
 		return parent;
 	}
 	
-	private void setParent(Tree tree) {
+	public void setParent(Tree tree) {
 		parent = tree;
 	}
 	
@@ -94,8 +99,9 @@ public class Tree {
 	}
 
 	public void replaceChild(Tree point1, Tree point2) {
-		children.set(children.indexOf(point1),point2);
+		children.set(children.indexOf(point1), point2);
+		point2.setParent(this);
 	}
-	
+
 	
 }

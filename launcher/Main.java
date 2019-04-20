@@ -36,12 +36,25 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		Individual i1= new Individual(4,true);
-		Individual i2= new Individual(4,true);
+		
+		/*
+		Individual i1= new Individual(3,false);
+		Individual i2= new Individual (3,false);
 		
 		ExchangeCross cross = new ExchangeCross();
 		
+		System.out.println(i1);
+		System.out.println(i2);
+		System.out.println();
+		
 		cross.apply(i1, i2);
+		
+		System.out.println();
+		System.out.println(i1);
+		System.out.println(i2);
+		
+		*/
+		
 	}
 
 }
