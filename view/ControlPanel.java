@@ -21,6 +21,7 @@ import model.cross.Cross;
 import model.cross.ExchangeCross;
 import model.entity.AlgorithmObserver;
 import model.entity.Individual;
+import model.mutation.FunctionalMutation;
 import model.mutation.Mutation;
 import model.mutation.TerminalMutation;
 import model.selection.DeterministicTournamentSelection;
@@ -77,9 +78,9 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		
 		JLabel selectionLabel = new JLabel("Selection:");
 		selectionLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		Selection[] selections= {new DeterministicTournamentSelection() ,new RouletteSelection()};
+		Selection[] selections= {new RouletteSelection(),new DeterministicTournamentSelection() };
 		_selection = new JComboBox<Selection>(selections);
-		_selection.setSelectedIndex(1);
+		_selection.setSelectedIndex(0);
 		_selection.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		
 		JLabel crossChanceLabel = new JLabel("Cross chance:"); 
@@ -94,7 +95,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		
 		JLabel mutationLabel = new JLabel("Mutation:");
 		mutationLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		Mutation[] mutations = {new TerminalMutation()};
+		Mutation[] mutations = {new TerminalMutation(), new FunctionalMutation()};
 		_mutation = new JComboBox<Mutation>(mutations);
 		_mutation.setSelectedIndex(0);
 		_mutation.setAlignmentX(JLabel.LEFT_ALIGNMENT);		

@@ -52,16 +52,22 @@ public class GeneticAlorithm implements PopulationObserver {
 		}
 		_population.evaluate();
 		for(int i=0;i<generations;i++) {			
-			if(Thread.currentThread().interrupted()) {
+			Thread.currentThread();
+			if(Thread.interrupted()) {
 				break;
 			}
 			
-			//TODO elitism
+			Elite elite = new Elite(_population,_elitism);
 			_selection.apply(_population);	
 			_population.cross(_cross,_crossChance);
 			_population.mutate(_mutation,_mutationChance);
 			_population.evaluate();
-			//System.out.println(_population);
+			if(_elitism>0) {
+				elite.replaceWorst(_population);
+				_population.evaluate();
+			}
+			
+			
 			
 			
 			for(AlgorithmObserver o : _observers) {

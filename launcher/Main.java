@@ -5,8 +5,12 @@ import javax.swing.SwingUtilities;
 import controller.Controller;
 import model.cross.ExchangeCross;
 import model.cross.NoCross;
+import model.entity.Elite;
 import model.entity.GeneticAlorithm;
 import model.entity.Individual;
+import model.entity.Population;
+import model.mutation.FunctionalMutation;
+import model.mutation.Mutation;
 import model.mutation.NoMutation;
 import model.mutation.TerminalMutation;
 import model.selection.NoSelection;
@@ -34,7 +38,7 @@ public class Main {
 			System.out.println("Something went wrong...");
 			System.out.println();
 			e.printStackTrace();
-		}
+		} 
 		
 		
 		/*
@@ -55,6 +59,16 @@ public class Main {
 		
 		*/
 		
+		/*Population pop =new Population(10,4);
+		pop.evaluate();
+		Elite el= new Elite(pop,0.5);
+		System.out.println(pop);
+		System.out.println("Elite" +el);
+		el.replaceWorst(pop, 0.5);
+		pop.evaluate();
+		System.out.println();
+		System.out.println(pop);
+		*/
 	}
 
 }

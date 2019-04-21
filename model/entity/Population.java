@@ -2,6 +2,8 @@ package model.entity;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import model.cross.Cross;
@@ -107,4 +109,18 @@ public class Population {
 			_cross.apply(chosen.get(i-1), chosen.get(i));
 		}
 	}
-}
+	
+	public void sort() {
+		Collections.sort(_population, new Comparator<Individual>() {
+			public int compare(Individual i1, Individual i2) {
+				if(i1.getFitness()<i2.getFitness()) {
+					return 1;
+				}
+				else if(i1.getFitness()==i2.getFitness()) {
+					return 0;
+				}
+				else return -1;
+			}
+		});
+	}
+} 
