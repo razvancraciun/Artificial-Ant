@@ -22,6 +22,7 @@ import model.cross.ExchangeCross;
 import model.entity.AlgorithmObserver;
 import model.entity.Individual;
 import model.mutation.FunctionalMutation;
+import model.mutation.InitializationMutation;
 import model.mutation.Mutation;
 import model.mutation.TerminalMutation;
 import model.selection.DeterministicTournamentSelection;
@@ -73,7 +74,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		
 		JLabel depthLabel=new JLabel("Maximum depth:");
 		depthLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		_depth=new JSpinner(new SpinnerNumberModel(4,2,10,1));
+		_depth=new JSpinner(new SpinnerNumberModel(4,2,7,1));
 		_depth.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		
 		JLabel selectionLabel = new JLabel("Selection:");
@@ -95,7 +96,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		
 		JLabel mutationLabel = new JLabel("Mutation:");
 		mutationLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		Mutation[] mutations = {new TerminalMutation(), new FunctionalMutation()};
+		Mutation[] mutations = {new TerminalMutation(), new FunctionalMutation(), new InitializationMutation()};
 		_mutation = new JComboBox<Mutation>(mutations);
 		_mutation.setSelectedIndex(0);
 		_mutation.setAlignmentX(JLabel.LEFT_ALIGNMENT);		

@@ -33,11 +33,12 @@ public class GeneticAlorithm implements PopulationObserver {
 	
 	public void init(int populationSize,int maxDepth,double crossChance,double mutationChance,
 			Selection selection,Cross cross,Mutation mutation, double elitism) {
-		_population=new Population(populationSize,maxDepth);
+		_maxDepth=maxDepth;
+		_population=new Population(populationSize,_maxDepth);
 		_population.addObserver(this);
 		
 		_best=null;
-		_maxDepth=maxDepth;
+		
 		_crossChance=crossChance;
 		_mutationChance=mutationChance;
 		_selection=selection;

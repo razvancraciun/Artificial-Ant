@@ -18,8 +18,6 @@ public class ExchangeCross implements Cross {
 	@Override
 	public void apply(Individual  first,Individual second) {
 		initLists();
-		Individual firstCopy= new Individual(first);
-		Individual secondCopy=new Individual(second);
 		add(first.getTree(),true);
 		add(second.getTree(),false);
 		first.getTree().computeDepths();
@@ -45,7 +43,7 @@ public class ExchangeCross implements Cross {
 		//System.out.println(point2+ ". Parent: "+ point2.getParent());
 		
 		if(point1.getParent()!=null) {
-			point1.getParent().replaceChild(point1, temp2); //nu schimba nimic
+			point1.getParent().replaceChild(point1, temp2);
 		}
 		else {
 			point2.setParent(null);

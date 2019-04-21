@@ -18,6 +18,7 @@ import model.entity.Individual;
 
 public class Plot extends JPanel implements AlgorithmObserver {
 
+	private static final long serialVersionUID = 6288344037344592038L;
 	private JFreeChart _chart;
 	private ChartPanel _chartPanel;
 	private XYSeriesCollection _dataset;
