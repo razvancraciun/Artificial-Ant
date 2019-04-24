@@ -7,7 +7,12 @@ import java.util.List;
 import model.entity.Individual;
 import model.misc.Terminal;
 import model.misc.Tree;
-
+/**
+ * This is the basic crossover operator for instruction trees. It interchanges two subtrees between the parent individuals
+ * @author razvan
+ * 
+ */
+//TODO: can choose root for exchange??
 public class ExchangeCross implements Cross {
 
 	private List<Tree> _firstFunctions;
@@ -20,6 +25,12 @@ public class ExchangeCross implements Cross {
 		initLists();
 		add(first.getTree(),true);
 		add(second.getTree(),false);
+		if(_firstFunctions.size()>=1) {
+			_firstFunctions.remove(0);
+		}
+		if(_secondFunctions.size()>=1) {
+			_secondFunctions.remove(0);
+		}
 		first.getTree().computeDepths();
 		second.getTree().computeDepths();
 		
@@ -39,9 +50,6 @@ public class ExchangeCross implements Cross {
 		Tree temp1 = new Tree(point1);
 		Tree temp2= new Tree(point2);
 		
-		//System.out.println(point1+ ". Parent: "+ point1.getParent());
-		//System.out.println(point2+ ". Parent: "+ point2.getParent());
-		
 		if(point1.getParent()!=null) {
 			point1.getParent().replaceChild(point1, temp2);
 		}
@@ -59,10 +67,6 @@ public class ExchangeCross implements Cross {
 			
 		}
 		
-		//System.out.println(point1+ ". Parent: "+ temp1.getParent());
-		//System.out.println(point2+ ". Parent: "+ temp2.getParent());
-		
-	
 	}
 	
 	private Tree choosePoint(boolean first) {

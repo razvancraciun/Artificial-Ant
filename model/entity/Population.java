@@ -17,15 +17,15 @@ public class Population {
 	
 	private List<PopulationObserver> _observers;
 	
-	public Population(int size, int maxDepth) {
+	public Population(int size, int maxDepth,int steps) {
 		_observers=new ArrayList<PopulationObserver>();
 		_population=new ArrayList<Individual>();
 		for(int group=0;group<(maxDepth-1);group++) {
 			for(int i=group*size/(maxDepth-1);i<(group+1)*size/(maxDepth-1);i++) {
 				if(i%2==0)
-					_population.add(new Individual(2+group,true));
+					_population.add(new Individual(2+group,true,steps));
 				else
-					_population.add(new Individual(2+group,false));
+					_population.add(new Individual(2+group,false,steps));
 			}
 		}
 		for(Individual i : _population ) {

@@ -29,12 +29,29 @@ public class TreeFactory {
 			return new Tree(getRandomTerminal());
 		}
 		else {
+				Tree tree = new Tree(getRandomNonTerminal());
+				tree.addChild(growthTree(depth-1));
+				tree.addChild(growthTree(depth-1));
+				if(tree.getType()==NonTerminal.SEQ3) {
+					tree.addChild(growthTree(depth-1));
+				}
+				return tree;
+		}	
+	}
+	
+	private Tree growthTree(int depth) {
+		if(depth<1)
+			throw new IllegalArgumentException("Depth must be at least 1");
+		else if(depth==1) {
+			return new Tree(getRandomTerminal());
+		}
+		else {
 			if(Math.random()<0.5) {
 				Tree tree = new Tree(getRandomNonTerminal());
-				tree.addChild(buildGrowthTree(depth-1));
-				tree.addChild(buildGrowthTree(depth-1));
+				tree.addChild(growthTree(depth-1));
+				tree.addChild(growthTree(depth-1));
 				if(tree.getType()==NonTerminal.SEQ3) {
-					tree.addChild(buildCompleteTree(depth-1));
+					tree.addChild(growthTree(depth-1));
 				}
 				return tree;
 			}

@@ -14,9 +14,9 @@ public class Controller {
 		_ga=ga;
 	}
 	
-	public void init(int populationSize,int maxDepth,double crossChance,double mutationChance,
+	public void init(int populationSize,int maxDepth,int steps,double crossChance,double mutationChance,
 			Selection selection,Cross cross,Mutation mutation, double elitism) {
-		_ga.init(populationSize, maxDepth, crossChance, mutationChance, selection, cross, mutation, elitism);
+		_ga.init(populationSize, maxDepth, steps, crossChance, mutationChance, selection, cross, mutation, elitism);
 	}
 	
 	public void run(int generations) {

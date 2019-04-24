@@ -34,6 +34,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 	
 	private JSpinner _populationSize;
 	private JSpinner _generations;
+	private JSpinner _steps;
 	private JComboBox<Selection> _selection;
 	private JSpinner _crossChance;
 	private JButton _start;
@@ -64,18 +65,23 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		JLabel generationsLabel = new JLabel("Number of generations:");
 		generationsLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 
-		_generations=new JSpinner(new SpinnerNumberModel(100,1,10000,10));
+		_generations=new JSpinner(new SpinnerNumberModel(1000,1,10000,10));
 		_generations.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		
 		JLabel populationLabel=new JLabel("Population size:");
 		populationLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		_populationSize=new JSpinner(new SpinnerNumberModel(100,10,10000,10));
+		_populationSize=new JSpinner(new SpinnerNumberModel(1000,10,10000,10));
 		_populationSize.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		
 		JLabel depthLabel=new JLabel("Maximum depth:");
 		depthLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		_depth=new JSpinner(new SpinnerNumberModel(4,2,7,1));
-		_depth.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+		_depth.setAlignmentX(LEFT_ALIGNMENT);
+		
+		JLabel stepsLabel= new JLabel("Steps:");
+		stepsLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+		_steps = new JSpinner(new SpinnerNumberModel(500,10,1000,50));
+		_steps.setAlignmentX(LEFT_ALIGNMENT);
 		
 		JLabel selectionLabel = new JLabel("Selection:");
 		selectionLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
@@ -86,19 +92,19 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		
 		JLabel crossChanceLabel = new JLabel("Cross chance:"); 
 		crossChanceLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		_crossChance= new JSpinner(new SpinnerNumberModel(0.6,0,1,0.05));
+		_crossChance= new JSpinner(new SpinnerNumberModel(0.7,0,1,0.05));
 		_crossChance.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		
 		JLabel mutationChanceLabel= new JLabel("Mutation chance:");
 		mutationChanceLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
-		_mutationChance = new JSpinner(new SpinnerNumberModel(0.05,0,1,0.01));
+		_mutationChance = new JSpinner(new SpinnerNumberModel(0.1,0,1,0.01));
 		_mutationChance.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		
 		JLabel mutationLabel = new JLabel("Mutation:");
 		mutationLabel.setAlignmentX(JLabel.LEFT_ALIGNMENT);
 		Mutation[] mutations = {new TerminalMutation(), new FunctionalMutation(), new InitializationMutation()};
 		_mutation = new JComboBox<Mutation>(mutations);
-		_mutation.setSelectedIndex(0);
+		_mutation.setSelectedIndex(2);
 		_mutation.setAlignmentX(JLabel.LEFT_ALIGNMENT);		
 		
 		JLabel elitismLabel = new JLabel("Elitism:");
@@ -134,6 +140,8 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 		add(_populationSize);
 		add(depthLabel);
 		add(_depth);
+		add(stepsLabel);
+		add(_steps);
 		add(selectionLabel);
 		add(_selection);
 		add(crossChanceLabel);
@@ -178,7 +186,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 					@Override
 					public void run() {
 						
-						_ctrl.init((int)_populationSize.getValue(),(int) _depth.getValue(), (double) _crossChance.getValue(), (double) _mutationChance.getValue(),
+						_ctrl.init((int)_populationSize.getValue(),(int) _depth.getValue(), (int) _steps.getValue(), (double) _crossChance.getValue(), (double) _mutationChance.getValue(),
 								(Selection) _selection.getSelectedItem(), (Cross) new ExchangeCross(), (Mutation) _mutation.getSelectedItem(), (double) _elitism.getValue());
 						_ctrl.run((int)_generations.getValue());
 						
@@ -208,6 +216,7 @@ public class ControlPanel extends JPanel implements AlgorithmObserver {
 	private void setFieldsActive(boolean value) {
 		_populationSize.setEnabled(value);
 		_generations.setEnabled(value);
+		_steps.setEnabled(value);
 		_selection.setEnabled(value);
 		_crossChance.setEnabled(value);
 		_start.setEnabled(value);

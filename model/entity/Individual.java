@@ -11,6 +11,7 @@ public class Individual {
 	private int _fitness;
 	private Tree _tree;
 	private int _maxDepth;
+	private int _maxSteps;
 	
 	private int _steps;
 	private int _food;
@@ -20,7 +21,8 @@ public class Individual {
 	private int _yPos;
 	private String[][] _field;
  	
-	public Individual(int depth,boolean complete) {
+	public Individual(int depth,boolean complete, int steps) {
+		_maxSteps=steps;
 		_xPos=_yPos=0;
 		_face=Face.RIGHT;
 		_field=Field.getInstance().getNewField();
@@ -39,6 +41,11 @@ public class Individual {
 		_maxDepth=other.getMaxDepth();
 		_tree=new Tree(other.getTree());
 		_field=Field.getCopy(other.getField());
+		_maxSteps=other.getMaxSteps();
+	}
+	
+	public int getMaxSteps() {
+		return _maxSteps;
 	}
 	
 	public Tree getTree() {
@@ -63,7 +70,7 @@ public class Individual {
 		_fitness=0;
 		_field = Field.getInstance().getNewField();
 		_steps=_food=0;
-		while(_steps<400&& _food<90) {
+		while(_steps<_maxSteps&& _food<90) {
 			evaluateTree(_tree);
 		}
 		_fitness=_food;

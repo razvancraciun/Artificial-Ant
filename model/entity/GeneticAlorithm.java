@@ -11,6 +11,7 @@ public class GeneticAlorithm implements PopulationObserver {
 
 	private Population _population;
 	private int _maxDepth;
+	private int _steps;
 	private double _crossChance;
 	private double _mutationChance;
 	private Selection _selection;
@@ -24,17 +25,18 @@ public class GeneticAlorithm implements PopulationObserver {
 	
 	private List<AlgorithmObserver> _observers;
 	
-	public GeneticAlorithm(int populationSize,int maxDepth,double crossChance,double mutationChance,
+	public GeneticAlorithm(int populationSize,int maxDepth,int steps,double crossChance,double mutationChance,
 			Selection selection,Cross cross,Mutation mutation, double elitism) {
 		_observers=new ArrayList<AlgorithmObserver>();
-		init(populationSize,maxDepth,crossChance,mutationChance,selection,cross,mutation,elitism);
+		init(populationSize,maxDepth,steps,crossChance,mutationChance,selection,cross,mutation,elitism);
 	}
 	
 	
-	public void init(int populationSize,int maxDepth,double crossChance,double mutationChance,
+	public void init(int populationSize,int maxDepth, int steps, double crossChance,double mutationChance,
 			Selection selection,Cross cross,Mutation mutation, double elitism) {
 		_maxDepth=maxDepth;
-		_population=new Population(populationSize,_maxDepth);
+		_steps= steps;
+		_population=new Population(populationSize,_maxDepth,_steps);
 		_population.addObserver(this);
 		
 		_best=null;
